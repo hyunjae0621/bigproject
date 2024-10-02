@@ -6,14 +6,26 @@ import InputBox from "./InputBox";
 import { useState } from "react";
 
 
-function Movie({ id, coverImage, year, title, summary, genres}) {
+function Movie({ id, coverImage, year, title, summary }) {
 
-const [cmtList, setCmtList] = useState([])
 
-const handleCmtList = (cmt) => {
-  setCmtList([cmt, ...cmtList])
-  
-}
+  const [rating, setRating] = useState(0)
+  const [cmtList, setCmtList] = useState([])
+
+
+  const handleCmtList = (cmt) => {
+    const data = {
+      ...cmt,
+      rating
+    }
+    setCmtList([data, ...cmtList])
+
+  }
+  const handleRating = (currentRating) => {
+    setRating(currentRating)
+
+  }
+
 
 
 
@@ -27,15 +39,25 @@ const handleCmtList = (cmt) => {
         </h2>
         <h3 className={styles.movie__year}>{year}</h3>
         <p>{summary.length > 235 ? `${summary.slice(0, 235)}...` : summary}</p>
-        
-        <ul>
-          {cmtList.map((cmt,index) => (<li key={index}>{cmt}</li>))}
+
+        <ul className={styles.list} >
+
+          {cmtList.map((data, index) => (<li key={index}>
+
+            ⭐️ : {data.rating} 😀 : {data.name} ✏️ : {data.cmt}
+
+
+          </li>))}
+
 
         </ul>
 
       </div>
-    <Rating id={id}/> <InputBox handleCmtList={handleCmtList}/>
+
+
+      <Rating handleRating={handleRating} /> <InputBox handleCmtList={handleCmtList} />
     </div>
+
   );
 }
 
