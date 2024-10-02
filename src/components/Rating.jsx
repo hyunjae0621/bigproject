@@ -38,4 +38,4 @@ const Rating = ({handleRating}) => {
   )
 }
 
-export default Rating
+export default Rating;
